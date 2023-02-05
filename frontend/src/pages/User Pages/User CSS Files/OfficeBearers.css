@@ -1,0 +1,7 @@
+.office-bearers{
+    display: flex;
+    flex-wrap: wrap;
+}
+.office-bearer{
+    padding:1rem;
+}
