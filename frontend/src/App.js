@@ -1,7 +1,7 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./App.css";
 import AddNewOfficeBearer, { addOfficeBearerAction } from "./pages/Admin Pages/AddNewOfficeBearer";
-import AddNewProducts from "./pages/Admin Pages/AddNewProducts";
+import AddNewProducts, { addNewProductsAction } from "./pages/Admin Pages/AddNewProducts";
 import AdminHome from "./pages/Admin Pages/AdminHome";
 import AllUsers, { usersLoader } from "./pages/Admin Pages/AllUsers";
 import NewRequests, { requestsAction, requestsLoader } from "./pages/Admin Pages/NewRequests";
@@ -34,7 +34,7 @@ const router = createBrowserRouter([
       { path: "new_requests",element:<NewRequests/>,loader:requestsLoader,action:requestsAction },
       {path:"new_requests/:requestId/accept",element:<RequestApproved/>,loader:requestApprovedLoader},
       {path:"new_requests/:requestId/decline",element:<RequestDeclined/>,loader:requestDeclinedLoader},
-      { path: "add_new_products",element:<AddNewProducts/>},
+      { path: "add_new_products",element:<AddNewProducts/>,action:addNewProductsAction},
       { path: "add_new_office_bearer",element:<AddNewOfficeBearer/>,action:addOfficeBearerAction },
     ],
   },

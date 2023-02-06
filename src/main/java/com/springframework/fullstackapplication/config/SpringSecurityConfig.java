@@ -15,7 +15,7 @@
 //    @Bean
 //    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 //
-//        http.csrf().disable().securityMatcher("/admin/**").authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
+//        http.csrf().disable().securityMatcher("/admin/*").authorizeRequests().anyRequest().fullyAuthenticated().and().httpBasic();
 //        return http.build();
 //    }
 //
