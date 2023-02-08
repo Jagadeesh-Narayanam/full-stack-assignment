@@ -1,3 +1,5 @@
+import { getAuthToken } from "../../util/Token";
+
 function RequestDeclined() {
   return (
     <>
@@ -10,7 +12,11 @@ export async function requestDeclinedLoader({request,params}){
     // const url = new URL(request.url).href;
     const requestId = params.requestId;
     
-    const response = await fetch("http://localhost:8080/admin/new_requests/"+requestId+"/decline");
+    const response = await fetch("http://localhost:8080/admin/new_requests/"+requestId+"/decline",{
+      headers: {
+        authorization: getAuthToken(),
+      },
+    });
     if(!response.ok){
         console.log("Decline failed");
     }

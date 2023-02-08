@@ -19,5 +19,7 @@ public class Registration {
     private String drugLicense;
     private String gst;
     private String phoneNumber;
+    private String username;
+    private String password;
 
 }

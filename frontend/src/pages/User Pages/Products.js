@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+import { getAuthToken } from "../../util/Token";
 
 function Products() {
   const data = useLoaderData();
@@ -24,7 +25,9 @@ function Products() {
 }
 export default Products;
 export async function productsLoader() {
-  const response = await fetch("http://localhost:8080/user/products");
+  const response = await fetch("http://localhost:8080/user/products",{headers: {
+    authorization: getAuthToken(),
+  },});
   if (!response.ok) {
     console.log("Could not fetch Products");
   } else {

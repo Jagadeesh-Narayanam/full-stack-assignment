@@ -1,4 +1,5 @@
 import { useLoaderData } from "react-router-dom";
+import { getAuthToken } from "../../util/Token";
 import "./User CSS Files/OfficeBearers.css";
 
 function OfficeBearers() {
@@ -23,7 +24,11 @@ function OfficeBearers() {
 export default OfficeBearers;
 
 export async function officeBearersLoader() {
-  const response = await fetch("http://localhost:8080/user/officeBearers");
+  const response = await fetch("http://localhost:8080/user/officeBearers",{
+    headers:{
+      authorization:getAuthToken(),
+    }
+  });
   if (!response.ok) {
     console.log("Could not fetch Office Bearers");
   } else {

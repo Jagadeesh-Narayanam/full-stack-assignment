@@ -1,4 +1,5 @@
 import { Link, redirect, useLoaderData } from "react-router-dom";
+import { getAuthToken } from "../../util/Token";
 
 function NewRequests() {
   const data = useLoaderData();
@@ -24,7 +25,7 @@ function NewRequests() {
               <td>{request.phoneNumber}</td>
               <td>
                 <Link to={`${request.id}/accept`}>Approve</Link>
-                <br/>
+                <br />
                 <Link to={`${request.id}/decline`}>Decline</Link>
               </td>
             </tr>
@@ -37,7 +38,11 @@ function NewRequests() {
 export default NewRequests;
 
 export async function requestsLoader() {
-  const response = await fetch("http://localhost:8080/admin/new_requests");
+  const response = await fetch("http://localhost:8080/admin/new_requests", {
+    headers: {
+      authorization: getAuthToken(),
+    },
+  });
   if (!response.ok) {
     console.log("Could not fetch New Registration Requests");
     return redirect("/admin");
@@ -48,9 +53,9 @@ export async function requestsLoader() {
   }
 }
 
-export async function requestsAction({request,params}){
-    console.log("In Requests Action");
-    const link = new URL(request.URL);
-    console.log(link);
-    return null;
+export async function requestsAction({ request, params }) {
+  console.log("In Requests Action");
+  const link = new URL(request.URL);
+  console.log(link);
+  return null;
 }

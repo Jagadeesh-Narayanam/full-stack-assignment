@@ -1,4 +1,5 @@
-import { useRouteLoaderData } from "react-router-dom";
+import { redirect, useRouteLoaderData } from "react-router-dom";
+import { getAuthToken } from "../../util/Token";
 
 function Profile() {
   const data = useRouteLoaderData("profile");
@@ -16,9 +17,13 @@ function Profile() {
 export default Profile;
 
 export async function profileLoader({ request, params }) {
-  const userId = params.userId;
+  const username = localStorage.getItem("username");
   const response = await fetch(
-    "http://localhost:8080/user/" + userId + "/profile"
+    "http://localhost:8080/user/" + username + "/profile",{
+      headers: {
+        authorization: getAuthToken(),
+      },
+    }
   );
   if (!response.ok) {
     console.log("Could not load User Profile");

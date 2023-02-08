@@ -1,18 +1,25 @@
-import { Link, Outlet, useParams } from "react-router-dom";
+import { Form, Link, Outlet } from "react-router-dom";
 
 function UserHome() {
-    const params = useParams();
-    const userId = params.userId;
+  const username = localStorage.getItem("username");
+  function logoutHandler(){
+    window.confirm("Are you sure to logout?");
+  }
   return (
     <>
-      <h1>User HomePage</h1>
-      <div className="links">
-      <Link to="officeBearers">Office Bearers</Link>
-      <Link to="products">Products</Link>
-      <Link to={`${userId}/profile`}>Profile</Link>
-      <Link to={`${userId}/profile/edit`}>Edit your Profile</Link>
+      <div>
+        <h1>User HomePage</h1>
+        <Form action="/logout" method="post">
+          <button onClick={logoutHandler}>Logout</button>
+        </Form>
       </div>
-      <Outlet/>
+      <div className="links">
+        <Link to="officeBearers">Office Bearers</Link>
+        <Link to="products">Products</Link>
+        <Link to={`${username}/profile`}>Profile</Link>
+        <Link to={`${username}/profile/edit`}>Edit your Profile</Link>
+      </div>
+      <Outlet />
     </>
   );
 }

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Form, redirect } from "react-router-dom";
+import { getAuthToken } from "../../util/Token";
 
 function AddNewProducts() {
   const [inputFields, setInputFields] = useState([
@@ -14,11 +15,11 @@ function AddNewProducts() {
     let newfield = { productName: "", productDescription: "" };
     setInputFields([...inputFields, newfield]);
   };
-  const submit = (e) => {
-    e.preventDefault();
-    console.log(inputFields);
-    return inputFields;
-  };
+  // const submit = (e) => {
+  //   e.preventDefault();
+  //   console.log(inputFields);
+  //   return inputFields;
+  // };
   const removeFields = (index) => {
     let data = [...inputFields];
     data.splice(index, 1)
@@ -71,7 +72,7 @@ export async function addNewProductsAction({ request, params }) {
   let object={};
   for (const value of formData.values()) {
     
-    if (i % 2 == 1) {
+    if (i % 2 === 1) {
         object["productName"]= value
     }
     else{
@@ -82,17 +83,17 @@ export async function addNewProductsAction({ request, params }) {
     }
     i++;
   }
-  const data = [];
   const response = await fetch("http://localhost:8080/admin/add_new_products", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      authorization: getAuthToken(),
     },
     body: JSON.stringify(dataList),
   });
   if (!response.ok) {
     console.log("Could not upload list of products");
   } else {
-    return response;
+    return redirect("/user/products");
   }
 }

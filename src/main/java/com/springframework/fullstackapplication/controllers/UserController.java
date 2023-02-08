@@ -1,21 +1,22 @@
 package com.springframework.fullstackapplication.controllers;
 
-import com.springframework.fullstackapplication.model.OfficeBearer;
-import com.springframework.fullstackapplication.model.Product;
-import com.springframework.fullstackapplication.model.Registration;
-import com.springframework.fullstackapplication.model.User;
+import com.springframework.fullstackapplication.model.*;
 import com.springframework.fullstackapplication.respositories.UserRepository;
 import com.springframework.fullstackapplication.services.OfficeBearerService;
 import com.springframework.fullstackapplication.services.ProductService;
 import com.springframework.fullstackapplication.services.RegistrationService;
 import com.springframework.fullstackapplication.services.UserService;
+import jakarta.persistence.Basic;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+import static com.springframework.fullstackapplication.model.Role.USER;
+
 @RestController
-@CrossOrigin(exposedHeaders = "Access-Control-Allow-Origin")
+@CrossOrigin
 public class UserController {
     private UserService userService;
     private ProductService productService;
@@ -33,21 +34,25 @@ public class UserController {
     }
 
     //User
-    @PostMapping("/register")
+    @PostMapping("/public/register")
     public Registration registerUser(@RequestBody Registration registration){
 
 //        return userService.registerUser(user);
         return registrationService.sendRequest(registration);
     }
-
-    @GetMapping("/user/{id}/profile")
-    public Optional<User> showUserDetails(@PathVariable Long id){
-        return userService.showDetails(id);
+    @PostMapping("/login")
+    public User login(@RequestBody User user){
+        return userService.login(user);
     }
 
-    @PutMapping("user/{id}/profile/edit")
-    public User editUserDetails(@PathVariable Long id,@RequestBody User user){
-        return userService.editDetails(id,user);
+    @GetMapping("/user/{username}/profile")
+    public User showUserDetails(@PathVariable String username){
+        return userService.showDetails(username);
+    }
+
+    @PutMapping("user/{username}/profile/edit")
+    public User editUserDetails(@PathVariable String username,@RequestBody User user){
+        return userService.editDetails(username,user);
     }
 
     @GetMapping("/user/products")
@@ -72,6 +77,11 @@ public class UserController {
     public List<User> showAllUsers(){
         return userService.findAllUsers();
     }
+
+    @GetMapping("/admin/users/{id}/changeStatus")
+    public User enableOrDisableUser(@PathVariable Long id){
+        return userService.enableOrDisableUser(id);
+    }
     @PostMapping("/admin/add_new_office_bearer")
     public OfficeBearer addNewOfficeBearer(@RequestBody OfficeBearer officeBearer){
         return officeBearerService.addNewOfficeBearer(officeBearer);
@@ -92,6 +102,10 @@ public class UserController {
         newUser.setDrugLicense(registration.getDrugLicense());
         newUser.setGst(registration.getGst());
         newUser.setPhoneNumber(registration.getPhoneNumber());
+        newUser.setUsername(registration.getUsername());
+        newUser.setPassword(registration.getPassword());
+        newUser.setEnabled(true);
+        newUser.setRole(USER);
         registrationService.deleteById(id);
         return userService.registerUser(newUser);
 

@@ -1,4 +1,5 @@
 import { Form,redirect } from "react-router-dom";
+import { getAuthToken } from "../../util/Token";
 
 function AddNewOfficeBearer() {
   return (
@@ -38,6 +39,7 @@ export async function addOfficeBearerAction({ request, params }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        authorization: getAuthToken(),
       },
       body: JSON.stringify(data),
     }

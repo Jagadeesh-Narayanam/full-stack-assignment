@@ -1,4 +1,5 @@
 import { Form, useRouteLoaderData,redirect } from "react-router-dom";
+import { getAuthToken } from "../../util/Token";
 
 function EditProfile() {
   const data = useRouteLoaderData("profile");
@@ -37,7 +38,7 @@ function EditProfile() {
 export default EditProfile;
 
 export async function editProfileAction({ request, params }) {
-  const userId = params.userId;
+  const username = localStorage.getItem("username");
   const formData = await request.formData();
   console.log(formData);
 
@@ -49,11 +50,12 @@ export async function editProfileAction({ request, params }) {
     phoneNumber:formData.get("phoneNumber")
   };
   const response = await fetch(
-    "http://localhost:8080/user/" + userId + "/profile/edit",
+    "http://localhost:8080/user/" + username + "/profile/edit",
     {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        authorization: getAuthToken(),
       },
       body: JSON.stringify(data),
     }

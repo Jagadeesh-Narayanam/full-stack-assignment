@@ -13,3 +13,14 @@ th{
 td{
     color:blue;
 }
+.active{
+    background-color:rgb(87, 240, 82);
+    color: black;
+    margin: 0 10rem;
+    border-radius: 6px;
+
+}
+.blocked{
+    background-color: rgb(218, 95, 95);
+    color: black;
+}

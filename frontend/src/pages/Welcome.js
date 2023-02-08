@@ -4,11 +4,13 @@ function Welcome() {
   return (
     <>
       <h1>Welcome page</h1>
-      <Link to="/register">Register</Link>
+      <Link to="/public/register">Register</Link>
       <br/>
-      <Link to="/admin">Admin</Link>
+      <Link to="/login">Login</Link>
       <br/>
-      <Link to="/user">User</Link>
+      {/* <Link to="/admin">Admin</Link>
+      <br/>
+      <Link to="/user">User</Link> */}
     </>
   );
 }

@@ -1,26 +1,7 @@
 import { Form, redirect } from "react-router-dom";
 
 function RegistrationPage() {
-//   const data = {
-//     businessName: "Ennea",
-//     contactPerson: "jaggu",
-//     drugLicense: "abcdefg",
-//     gst: "gst123",
-//     phoneNumber: "111",
-//   };
-//   async function registrationHandler(event) {
-//     event.preventDefault();
-//     const response = await fetch("http://localhost:8080/register", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify(data),
-//       mode: "cors",
-//     });
-//     console.log(JSON.stringify(data));
-//     if (!response.ok) {
-//       console.log("error");
-//     }
-//   }
+
   return (
     <>
       <h1>Register here</h1>
@@ -39,6 +20,13 @@ function RegistrationPage() {
         <br />
         <label htmlFor="phoneNumber">Phone Number</label>
         <input type="text" name="phoneNumber" />
+        <br/>
+        <label htmlFor="username">UserName</label>
+        <input type="text" name="username"/>
+        <br/>
+        <label htmlFor="password">Password</label>
+        <input type="text" name="password"/>
+        <br/>
         <button type="submit">Submit</button>
       </Form>
     </>
@@ -54,8 +42,10 @@ export async function action({ request, params }) {
     drugLicense: formData.get("drugLicense"),
     gst: formData.get("gst"),
     phoneNumber: formData.get("phoneNumber"),
+    username:formData.get("username"),
+    password:formData.get("password")
   };
-  const response = await fetch("http://localhost:8080/register", {
+  const response = await fetch("http://localhost:8080/public/register", {
     method: "POST",
     headers:{
         "Content-Type":"application/json"
