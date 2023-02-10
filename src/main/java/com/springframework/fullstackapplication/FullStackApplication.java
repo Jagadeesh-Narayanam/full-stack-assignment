@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @SpringBootApplication
-@CrossOrigin(exposedHeaders = "Access-Control-Allow-Origin")
+@CrossOrigin
 public class FullStackApplication {
 
 	public static void main(String[] args) {

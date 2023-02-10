@@ -6,6 +6,6 @@ import lombok.Data;
 import java.util.List;
 
 public enum Role {
-    ADMIN,USER
+    ADMIN,RETAILER,DISTRIBUTOR
 
 }

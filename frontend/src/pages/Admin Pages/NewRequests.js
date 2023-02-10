@@ -1,12 +1,13 @@
 import { Link, redirect, useLoaderData } from "react-router-dom";
 import { getAuthToken } from "../../util/Token";
+import "./Admin CSS files/NewRequests.css";
 
 function NewRequests() {
   const data = useLoaderData();
   return (
     <>
-      <h1>New Registration Requests</h1>
-      <table>
+      <h1 className="heading">New Registration Requests</h1>
+      <table className="table table-light">
         <tbody>
           <tr>
             <th>Business Name</th>
@@ -14,24 +15,27 @@ function NewRequests() {
             <th>Drug License</th>
             <th>GST</th>
             <th>Phone Number</th>
+            <th>Role</th>
             <th>Approve/Decline</th>
           </tr>
-          {data.map((request) => (
+          
+          {data.length!=0 && data.map((request) => (
             <tr key={request.id}>
               <td>{request.businessName}</td>
               <td>{request.contactPerson}</td>
               <td>{request.drugLicense}</td>
               <td>{request.gst}</td>
               <td>{request.phoneNumber}</td>
-              <td>
-                <Link to={`${request.id}/accept`}>Approve</Link>
-                <br />
-                <Link to={`${request.id}/decline`}>Decline</Link>
+              <td>{request.role}</td>
+              <td className="status">
+                <Link to={`${request.id}/accept`}><button className="approve">✔</button></Link>
+                <Link to={`${request.id}/decline`}><button className="decline">✖</button></Link>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {data.length===0 && <h3 className="heading">No new registration requests</h3>}
     </>
   );
 }
@@ -48,14 +52,7 @@ export async function requestsLoader() {
     return redirect("/admin");
   } else {
     const resData = await response.json();
-    // console.log(resData);
     return resData;
   }
 }
 
-export async function requestsAction({ request, params }) {
-  console.log("In Requests Action");
-  const link = new URL(request.URL);
-  console.log(link);
-  return null;
-}

@@ -11,9 +11,6 @@ import java.util.List;
 public class ProductService {
     @Autowired
     private ProductRepository productRepository;
-//    public Product addProduct(Product product){
-//        return productRepository.save(product);
-//    }
 
     public List<Product> addProductsList(List<Product> products){
         return productRepository.saveAll(products);

@@ -1,12 +1,13 @@
 import { Form, useRouteLoaderData,redirect } from "react-router-dom";
 import { getAuthToken } from "../../util/Token";
+import "./User CSS Files/EditProfile.css";
 
 function EditProfile() {
   const data = useRouteLoaderData("profile");
   return (
     <>
-      <h1>Edit Profile</h1>
-      <Form method="POST">
+      <h1 className="heading">Edit Profile</h1>
+      <Form method="POST" className="edit-profile-form">
         <label htmlFor="businessName">Business Name</label>
         <input
           type="text"

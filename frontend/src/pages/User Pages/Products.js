@@ -5,8 +5,8 @@ function Products() {
   const data = useLoaderData();
   return (
     <>
-      <h1>Products</h1>
-      <table>
+      <h1 className="heading">Products</h1>
+      <table className="table table-light">
         <tbody>
         <tr>
             <th>Product Name</th>

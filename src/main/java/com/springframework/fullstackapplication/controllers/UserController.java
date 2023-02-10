@@ -7,21 +7,23 @@ import com.springframework.fullstackapplication.services.ProductService;
 import com.springframework.fullstackapplication.services.RegistrationService;
 import com.springframework.fullstackapplication.services.UserService;
 import jakarta.persistence.Basic;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
 
-import static com.springframework.fullstackapplication.model.Role.USER;
+//import static com.springframework.fullstackapplication.model.Role.USER;
 
 @RestController
 @CrossOrigin
 public class UserController {
-    private UserService userService;
-    private ProductService productService;
-    private OfficeBearerService officeBearerService;
-    private RegistrationService registrationService;
+    private final UserService userService;
+    private final ProductService productService;
+    private final OfficeBearerService officeBearerService;
+    private final RegistrationService registrationService;
     private final UserRepository userRepository;
 
     public UserController(UserService userService, ProductService productService, OfficeBearerService officeBearerService, RegistrationService registrationService,
@@ -38,7 +40,14 @@ public class UserController {
     public Registration registerUser(@RequestBody Registration registration){
 
 //        return userService.registerUser(user);
-        return registrationService.sendRequest(registration);
+        User existedUser = userRepository.findByUsername(registration.getUsername());
+        System.out.println(existedUser);
+        if(existedUser==null) {
+            return registrationService.sendRequest(registration);
+        }
+        else{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username already exists!");
+        }
     }
     @PostMapping("/login")
     public User login(@RequestBody User user){
@@ -67,54 +76,7 @@ public class UserController {
 
 
 
-    //Admin
-    @PostMapping("/admin/add_new_products")
-    public List<Product> addProducts(@RequestBody List<Product> products){
-        return productService.addProductsList(products);
-    }
 
-    @GetMapping("/admin/users")
-    public List<User> showAllUsers(){
-        return userService.findAllUsers();
-    }
-
-    @GetMapping("/admin/users/{id}/changeStatus")
-    public User enableOrDisableUser(@PathVariable Long id){
-        return userService.enableOrDisableUser(id);
-    }
-    @PostMapping("/admin/add_new_office_bearer")
-    public OfficeBearer addNewOfficeBearer(@RequestBody OfficeBearer officeBearer){
-        return officeBearerService.addNewOfficeBearer(officeBearer);
-    }
-
-    @GetMapping("/admin/new_requests")
-    public List<Registration> showAllNewRequests(){
-        return registrationService.showAllRegistrations();
-    }
-
-    @GetMapping("admin/new_requests/{id}/accept")
-    public User acceptRegistration(@PathVariable Long id){
-        Registration registration = registrationService.findById(id);
-//        System.out.println(registration);
-        User newUser = new User();
-        newUser.setBusinessName(registration.getBusinessName());
-        newUser.setContactPerson(registration.getContactPerson());
-        newUser.setDrugLicense(registration.getDrugLicense());
-        newUser.setGst(registration.getGst());
-        newUser.setPhoneNumber(registration.getPhoneNumber());
-        newUser.setUsername(registration.getUsername());
-        newUser.setPassword(registration.getPassword());
-        newUser.setEnabled(true);
-        newUser.setRole(USER);
-        registrationService.deleteById(id);
-        return userService.registerUser(newUser);
-
-    }
-    @GetMapping("admin/new_requests/{id}/decline")
-    public String declineRegistration(@PathVariable Long id){
-        registrationService.deleteById(id);
-        return "Registration Request Deleted";
-    }
 
 
 }

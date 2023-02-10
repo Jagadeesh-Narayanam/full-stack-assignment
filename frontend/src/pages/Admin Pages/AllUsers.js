@@ -23,8 +23,8 @@ function AllUsers() {
 
   return (
     <>
-      <h1>List of Users</h1>
-      <table className="users_table">
+      <h1 className="heading">List of Users</h1>
+      <table className="table table-light">
         <tbody>
           <tr>
             <th>Business Name</th>
@@ -32,9 +32,10 @@ function AllUsers() {
             <th>Drug License</th>
             <th>GST</th>
             <th>Phone Number</th>
+            <th>Role</th>
             <th>Status</th>
-            <th>Toggle</th>
           </tr>
+          {console.log(data)}
           {data.map((user) => (
             <tr key={user.id}>
               <td>{user.businessName}</td>
@@ -42,10 +43,12 @@ function AllUsers() {
               <td>{user.drugLicense}</td>
               <td>{user.gst}</td>
               <td>{user.phoneNumber}</td>
-              {user.enabled ? <td className="active">Active</td> : <td className="blocked">Blocked</td>}
+              <td>{user.role}</td>
+              {/* {user.enabled ? <td className="active">Active</td> : <td className="blocked">Blocked</td>}
               <td>
                 <button onClick={() => statusHandler(user.id)}>Toggle</button>
-              </td>
+              </td> */}
+              <td><button onClick={()=>statusHandler(user.id)} disabled= {user.role==="ADMIN"} className={user.enabled?"active":"blocked"}>{user.enabled?<td>Active</td>:<td>Blocked</td>}</button></td>
             </tr>
           ))}
         </tbody>
@@ -61,7 +64,7 @@ export async function usersLoader() {
       "Authorization":getAuthToken() ,
     },
   });
-  // console.log(response);
+  console.log(response);
   if (!response.ok) {
     console.log("Could not fetch users");
     console.log(response.json());

@@ -5,7 +5,7 @@ import AddNewProducts, { addNewProductsAction } from "./pages/Admin Pages/AddNew
 import AdminHome from "./pages/Admin Pages/AdminHome";
 import AdminLogin from "./pages/Admin Pages/AdminLogin";
 import AllUsers, { usersLoader } from "./pages/Admin Pages/AllUsers";
-import NewRequests, { requestsAction, requestsLoader } from "./pages/Admin Pages/NewRequests";
+import NewRequests, { requestsLoader } from "./pages/Admin Pages/NewRequests";
 import RequestApproved, { requestApprovedLoader } from "./pages/Admin Pages/RequestApproved";
 import RequestDeclined, { requestDeclinedLoader } from "./pages/Admin Pages/RequestDeclined";
 import Login from "./pages/Login";
@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     children: [
       { path: "users",element:<AllUsers/>,loader: usersLoader},
       {path:"users/:userId/changeStatus",element:<AllUsers/>,loader:usersLoader},
-      { path: "new_requests",element:<NewRequests/>,loader:requestsLoader,action:requestsAction },
+      { path: "new_requests",element:<NewRequests/>,loader:requestsLoader},
       {path:"new_requests/:requestId/accept",element:<RequestApproved/>,loader:requestApprovedLoader},
       {path:"new_requests/:requestId/decline",element:<RequestDeclined/>,loader:requestDeclinedLoader},
       { path: "add_new_products",element:<AddNewProducts/>,action:addNewProductsAction},

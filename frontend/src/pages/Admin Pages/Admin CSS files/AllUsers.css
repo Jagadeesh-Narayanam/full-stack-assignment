@@ -1,26 +1,30 @@
-.users_table{
-    display: flex;
-    justify-content: center;
-    /* border:1px solid; */
-}
-th,td{
+/* th,td{
     padding:1rem;
     border: 1px solid black;
-}
-th{
+} */
+.table th{
     color:red;
 }
-td{
+.table td{
     color:blue;
 }
+.table button{
+    width: fit-content;
+    margin:0 2px;
+}
 .active{
-    background-color:rgb(87, 240, 82);
-    color: black;
-    margin: 0 10rem;
     border-radius: 6px;
+    background-color: rgb(57, 230, 51);
+}
+
+.active td{
+    color:black;
 
 }
 .blocked{
     background-color: rgb(218, 95, 95);
+    border-radius: 6px;
+}
+.blocked td{
     color: black;
 }

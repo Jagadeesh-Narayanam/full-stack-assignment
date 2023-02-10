@@ -1,23 +1,25 @@
-import { Form, Link, Outlet } from "react-router-dom";
+import { Link,NavLink, Outlet } from "react-router-dom";
+import { logoutAction } from "../../util/Logout";
 
 function UserHome() {
   const username = localStorage.getItem("username");
   function logoutHandler(){
     window.confirm("Are you sure to logout?");
+    logoutAction();
   }
   return (
     <>
-      <div>
-        <h1>User HomePage</h1>
-        <Form action="/logout" method="post">
-          <button onClick={logoutHandler}>Logout</button>
-        </Form>
+      <h1 className="heading">User HomePage</h1>
+      <div className="navigation-bar">
+      <div className="nav-links">
+        <NavLink className={({isActive})=>isActive?"active-nav":undefined} to="officeBearers">Office Bearers</NavLink>
+        <NavLink className={({isActive})=>isActive?"active-nav":undefined} to="products">Products</NavLink>
+        <NavLink className={({isActive})=>isActive?"active-nav":undefined} to={`${username}/profile`}>Profile</NavLink>
+        {/* <NavLink className={({isActive})=>isActive?"active-nav":undefined} to={`${username}/profile/edit`}>Edit your Profile</NavLink> */}
       </div>
-      <div className="links">
-        <Link to="officeBearers">Office Bearers</Link>
-        <Link to="products">Products</Link>
-        <Link to={`${username}/profile`}>Profile</Link>
-        <Link to={`${username}/profile/edit`}>Edit your Profile</Link>
+      <div className="logout"><Link to="/">
+          <button onClick={logoutHandler}>Logout</button>
+        </Link></div>
       </div>
       <Outlet />
     </>

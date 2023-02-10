@@ -1,9 +1,11 @@
 import { getAuthToken } from "../../util/Token";
+import { Link } from "react-router-dom";
 
 function RequestApproved() {
   return (
     <>
-      <p>New User added</p>
+      <h4 className="heading">New User added</h4>
+      <Link to="/admin/new_requests"><h5 className="heading">Back</h5></Link>
     </>
   );
 }

@@ -7,27 +7,45 @@ function OfficeBearers() {
 
   return (
     <>
-      <h1>Office Bearers</h1>
-      <ul className="office-bearers">
+      <h1 className="heading">Office Bearers</h1>
+      <div className="office-bearers">
         {data.map((officeBearer) => (
-          <div key={officeBearer.id} className="office-bearer">
-            <p>Position : {officeBearer.position}</p>
-            <p>Name : {officeBearer.name}</p>
-            <p>Phone Number : {officeBearer.phoneNumber}</p>
-            <p>Email : {officeBearer.email}</p>
-          </div>
+          <table key={officeBearer.id} className="office-bearer">
+            <tbody>
+              <tr>
+                <td>Position</td>
+                <td>:</td>
+                <td>{officeBearer.position}</td>
+              </tr>
+              <tr>
+                <td>Name</td>
+                <td>:</td>
+                <td>{officeBearer.name}</td>
+              </tr>
+              <tr>
+                <td>Phone Number</td>
+                <td>:</td>
+                <td>{officeBearer.phoneNumber}</td>
+              </tr>
+              <tr>
+                <td>Email</td>
+                <td>:</td>
+                <td>{officeBearer.email}</td>
+              </tr>
+            </tbody>
+          </table>
         ))}
-      </ul>
+      </div>
     </>
   );
 }
 export default OfficeBearers;
 
 export async function officeBearersLoader() {
-  const response = await fetch("http://localhost:8080/user/officeBearers",{
-    headers:{
-      authorization:getAuthToken(),
-    }
+  const response = await fetch("http://localhost:8080/user/officeBearers", {
+    headers: {
+      authorization: getAuthToken(),
+    },
   });
   if (!response.ok) {
     console.log("Could not fetch Office Bearers");

@@ -1,6 +1,5 @@
 package com.springframework.fullstackapplication.services;
 
-import com.springframework.fullstackapplication.model.CustomUserDetails;
 import com.springframework.fullstackapplication.model.User;
 import com.springframework.fullstackapplication.respositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,16 +65,14 @@ public class UserService {
     }
 
     public List<User> findAllUsers() {
+        System.out.println("Finding users");
         return userRepository.findAll();
     }
 
     public User login(User user) {
         User savedUser = userRepository.findByUsername(user.getUsername());
-        System.out.println(savedUser.getPassword());
-        System.out.println(user.getPassword());
 
         if(user.getPassword().equals(savedUser.getPassword())){
-            System.out.println(savedUser);
             return savedUser;
         }
         else{

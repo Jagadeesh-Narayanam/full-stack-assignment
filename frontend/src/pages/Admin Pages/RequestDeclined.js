@@ -1,9 +1,11 @@
 import { getAuthToken } from "../../util/Token";
+import { Link } from "react-router-dom";
 
 function RequestDeclined() {
   return (
     <>
-      <p>Registration Request Declined</p>
+      <h4 className="heading">Registration Request Declined</h4>
+      <Link to="/admin/new_requests"><h5 className="heading">Back</h5></Link>
     </>
   );
 }
