@@ -59,7 +59,6 @@ public class AdminController {
     @GetMapping("admin/new_requests/{id}/accept")
     public User acceptRegistration(@PathVariable Long id){
         Registration registration = registrationService.findById(id);
-//        System.out.println(registration);
 
         User newUser = new User();
         newUser.setBusinessName(registration.getBusinessName());

@@ -16,7 +16,6 @@ public class UserService {
 
     public User registerUser(User newUser){
         Optional<User> user = userRepository.findByDrugLicense(newUser.getDrugLicense());
-        System.out.println(user);
         if(user.isEmpty()){
             return userRepository.save(newUser);
         }
@@ -65,13 +64,11 @@ public class UserService {
     }
 
     public List<User> findAllUsers() {
-        System.out.println("Finding users");
         return userRepository.findAll();
     }
 
     public User login(User user) {
         User savedUser = userRepository.findByUsername(user.getUsername());
-
         if(user.getPassword().equals(savedUser.getPassword())){
             return savedUser;
         }

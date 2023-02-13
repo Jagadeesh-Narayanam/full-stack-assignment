@@ -6,16 +6,11 @@ import com.springframework.fullstackapplication.services.OfficeBearerService;
 import com.springframework.fullstackapplication.services.ProductService;
 import com.springframework.fullstackapplication.services.RegistrationService;
 import com.springframework.fullstackapplication.services.UserService;
-import jakarta.persistence.Basic;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
-
-//import static com.springframework.fullstackapplication.model.Role.USER;
 
 @RestController
 @CrossOrigin
@@ -25,6 +20,7 @@ public class UserController {
     private final OfficeBearerService officeBearerService;
     private final RegistrationService registrationService;
     private final UserRepository userRepository;
+
 
     public UserController(UserService userService, ProductService productService, OfficeBearerService officeBearerService, RegistrationService registrationService,
                           UserRepository userRepository) {
@@ -39,10 +35,9 @@ public class UserController {
     @PostMapping("/public/register")
     public Registration registerUser(@RequestBody Registration registration){
 
-//        return userService.registerUser(user);
         User existedUser = userRepository.findByUsername(registration.getUsername());
-        System.out.println(existedUser);
         if(existedUser==null) {
+            registration.setPassword(registration.getPassword());
             return registrationService.sendRequest(registration);
         }
         else{

@@ -4,7 +4,6 @@ import "./Admin CSS files/AllUsers.css";
 function AllUsers() {
   const data = useLoaderData();
   const navigate = useNavigate();
-  // console.log(data);
   async function statusHandler(userId) {
     const response = await fetch(
       "http://localhost:8080/admin/users/" + userId + "/changeStatus",
@@ -44,10 +43,6 @@ function AllUsers() {
               <td>{user.gst}</td>
               <td>{user.phoneNumber}</td>
               <td>{user.role}</td>
-              {/* {user.enabled ? <td className="active">Active</td> : <td className="blocked">Blocked</td>}
-              <td>
-                <button onClick={() => statusHandler(user.id)}>Toggle</button>
-              </td> */}
               <td><button onClick={()=>statusHandler(user.id)} disabled= {user.role==="ADMIN"} className={user.enabled?"active":"blocked"}>{user.enabled?<td>Active</td>:<td>Blocked</td>}</button></td>
             </tr>
           ))}
@@ -67,23 +62,10 @@ export async function usersLoader() {
   console.log(response);
   if (!response.ok) {
     console.log("Could not fetch users");
-    console.log(response.json());
     return null;
-    // return redirect("/admin");
   } else {
     const resData = await response.json();
-    // console.log(JSON.stringify(resData));
     return resData;
   }
 }
 
-// export async function userStatusAction({request,params}){
-//   const userId = params.get("userId");
-//   const response = await fetch("http://localhost:8080/admin/users/"+userId+"/changeStatus");
-//   if(!response.ok){
-//     console.log("Could not change the status of user :"+userId);
-//   }
-//   else{
-//     redirect(userId+"/changeStatus");
-//   }
-// }

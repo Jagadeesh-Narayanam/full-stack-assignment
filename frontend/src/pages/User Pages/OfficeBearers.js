@@ -50,7 +50,6 @@ export async function officeBearersLoader() {
   if (!response.ok) {
     console.log("Could not fetch Office Bearers");
   } else {
-    // console.log("Office Bearers loaded suucessfully");
     const resData = await response.json();
     return resData;
   }

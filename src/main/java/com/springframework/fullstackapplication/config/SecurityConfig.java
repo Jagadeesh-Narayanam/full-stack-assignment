@@ -20,15 +20,14 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
+
         return NoOpPasswordEncoder.getInstance();
     }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception{
-//        http.authorizeRequests().requestMatchers("/public/register").permitAll();
-//        http.cors().and().csrf().disable();
-//        http.authorizeRequests().requestMatchers("/public/**").permitAll();
-        http.cors().and().csrf().disable().authorizeRequests().requestMatchers("/admin/**").hasAnyAuthority("ADMIN").and().httpBasic();
-        http.cors().and().csrf().disable().authorizeRequests().requestMatchers("/user/**").hasAnyAuthority("ADMIN","RETAILER","DISTRIBUTOR").and().httpBasic();
+        http.cors().and().csrf().disable();
+        http.authorizeRequests().requestMatchers("/admin/**").hasAnyAuthority("ADMIN").and().httpBasic();
+        http.authorizeRequests().requestMatchers("/user/**").hasAnyAuthority("ADMIN","RETAILER","DISTRIBUTOR").and().httpBasic();
         return http.build();
     }
 }

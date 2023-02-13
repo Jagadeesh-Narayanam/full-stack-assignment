@@ -63,7 +63,6 @@ export async function profileLoader({ request, params }) {
   } else {
     console.log("User Profile loaded successfully");
     const resData = await response.json();
-    // console.log(resData);
     return resData;
   }
   return response;

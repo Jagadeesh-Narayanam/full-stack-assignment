@@ -1,11 +1,16 @@
-import { Form, Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet,redirect } from "react-router-dom";
 import { logoutAction } from "../../util/Logout";
 import "./Admin CSS files/AdminHome.css";
 
 function AdminHome() {
   function logoutHandler(){
-    window.confirm("Are you sure to logout?");
-    logoutAction();
+    const confirmLogout = window.confirm("Are you sure to logout?");
+    console.log(confirmLogout);
+    if (confirmLogout===true) {
+      console.log(confirmLogout);
+      logoutAction();
+    }
+    return redirect("/admin");
   }
   return (
     <>

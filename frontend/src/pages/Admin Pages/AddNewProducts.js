@@ -16,11 +16,6 @@ function AddNewProducts() {
     let newfield = { productName: "", productDescription: "" };
     setInputFields([...inputFields, newfield]);
   };
-  // const submit = (e) => {
-  //   e.preventDefault();
-  //   console.log(inputFields);
-  //   return inputFields;
-  // };
   const removeFields = (index) => {
     let data = [...inputFields];
     data.splice(index, 1);
@@ -54,7 +49,6 @@ function AddNewProducts() {
         <button
           type="submit"
           className="submit-button"
-          // onClick={submit}
         >
           Submit
         </button>
@@ -68,7 +62,6 @@ export default AddNewProducts;
 export async function addNewProductsAction({ request, params }) {
   const formData = await request.formData();
   const dataList = [];
-  //   console.log(formData);
   let i = 1;
 
   let object = {};
@@ -77,7 +70,6 @@ export async function addNewProductsAction({ request, params }) {
       object["productName"] = value;
     } else {
       object["productDescription"] = value;
-      // console.log(data)
       dataList.push(object);
       object = {};
     }
